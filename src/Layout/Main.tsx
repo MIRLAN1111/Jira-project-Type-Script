@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../components/css/Main.css";
+import { IoEllipsisHorizontal } from "react-icons/io5";
+import { Box, styled } from "@mui/material";
 
 interface Item {
 	id: number;
@@ -123,6 +125,11 @@ const Main = () => {
 							draggable={true}
 							className="item">
 							{item.title}
+							<Settings>
+
+							<IoEllipsisHorizontal />	
+							</Settings>
+
 						</div>
 					))}
 				</div>
@@ -132,3 +139,9 @@ const Main = () => {
 };
 
 export default Main;
+
+
+
+const Settings =styled(Box)`
+text-align: end;
+`
