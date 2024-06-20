@@ -98,7 +98,6 @@ const DaysLeft = styled.div`
 	border-radius: 3px;
 	font-size: 18px;
 	color: #0052cc;
-	cursor: pointer;
 `;
 
 const Icons = styled.div`
