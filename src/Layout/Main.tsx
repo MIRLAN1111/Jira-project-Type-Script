@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../App.css";
+import "../components/css/Main.css";
 
 interface Item {
 	id: number;
