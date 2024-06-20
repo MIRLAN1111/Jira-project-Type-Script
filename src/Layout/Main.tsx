@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../components/css/Main.css";
-import { IoEllipsisHorizontal } from "react-icons/io5";
-import { Box,  styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
+import SettingModal from "./Tasks/Setting";
 
 interface Item {
 	id: number;
@@ -126,17 +126,8 @@ const Main = () => {
 							className="item">
 							{item.title}
 							<Settings>
-								
-								<IoEllipsisHorizontal 
-								 
-									style={{
-										width: "20px",
-										cursor: "auto",
-										height: "20px",
-										background: "rgba(222, 184, 135, 0.362)",
-										borderRadius:"4px",
-									}}
-								/>
+								<SettingModal>...</SettingModal>
+						
 							</Settings>
 						</div>
 					))}
@@ -147,6 +138,7 @@ const Main = () => {
 };
 
 export default Main;
+
 
 const Settings = styled(Box)`
 	text-align: end;
