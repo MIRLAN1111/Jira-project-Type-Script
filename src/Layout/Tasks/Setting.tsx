@@ -2,6 +2,7 @@ import { ReactNode, useState } from "react";
 import { Box, Typography, Modal as MuiModal } from "@mui/material";
 import styled from "styled-components";
 import { IoEllipsisHorizontal } from "react-icons/io5";
+import { IoIosCloseCircle } from "react-icons/io";
 
 interface PropsComponent {
 	title: string;
@@ -13,12 +14,17 @@ interface PropsComponent {
 const ModalComponent = ({ title, open, onClose, style }: PropsComponent) => {
 	return (
 		<MuiModal
-			open={open}
-			onClose={onClose}
-			aria-labelledby="modal-modal-title"
-			aria-describedby="modal-modal-description">
+		open={open}
+		onClose={onClose}
+		aria-labelledby="modal-modal-title"
+		aria-describedby="modal-modal-description">
 			<Box sx={style}>
-				<Typography id="modal-modal-title" variant="h6" component="h2">
+				<BoxClose>
+
+		<IoIosCloseCircle />
+				</BoxClose>
+				<Typography id="modal-modal-title" variant="p" marginTop={'-20px'} component="p">
+
 					{title}
 				</Typography>
 				<BoxMUi>
@@ -65,7 +71,8 @@ const SettingModal = ({ children }: TypeChildren) => {
 				{children}
 			</IoEllipsisHorizontal>
 			<ModalComponent
-				title="Создание задачи"
+			
+				title="Настройка Задачу🔧"
 				open={open}
 				onClose={handleClose}
 				style={style}
@@ -85,3 +92,11 @@ const BoxMUi = styled(Box)`
 	display: flex;
 	justify-content: space-between;
 `;
+
+
+const BoxClose = styled(Box)`
+text-align: end;
+margin-top: -30px;
+
+
+`
