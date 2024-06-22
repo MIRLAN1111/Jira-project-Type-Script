@@ -4,6 +4,12 @@ import { RiAddBoxFill } from "react-icons/ri";
 import { FaSave, FaWindowClose } from "react-icons/fa";
 import Input from "../../components/UI/Input";
 
+type Board = {
+  id: number;
+  title: string;
+  items: any[];
+};
+
 const Tasks: React.FC = () => {
   const [isInputVisible, setIsInputVisible] = useState(false);
   const [newBoardTitle, setNewBoardTitle] = useState("");
@@ -24,7 +30,6 @@ const Tasks: React.FC = () => {
         title: newBoardTitle,
         items: [],
       };
-      setBoards([...boards, newBoard]);
       setIsInputVisible(false);
       setNewBoardTitle("");
     }
