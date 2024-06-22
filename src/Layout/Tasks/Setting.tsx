@@ -3,32 +3,40 @@ import { Box, Typography, Modal as MuiModal } from "@mui/material";
 import styled from "styled-components";
 import { IoEllipsisHorizontal } from "react-icons/io5";
 import { IoIosCloseCircle } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
 
 interface PropsComponent {
 	title: string;
 	open: boolean;
 	onClose: () => void;
 	style: any;
+	onDelete: () => void;
 }
 
-const ModalComponent = ({ title, open, onClose, style }: PropsComponent) => {
+const ModalComponent = ({ title, open, onClose, style, onDelete }: PropsComponent) => {
 	return (
 		<MuiModal
-		open={open}
-		onClose={onClose}
-		aria-labelledby="modal-modal-title"
-		aria-describedby="modal-modal-description">
+			open={open}
+			onClose={onClose}
+			aria-labelledby="modal-modal-title"
+			aria-describedby="modal-modal-description">
 			<Box sx={style}>
 				<BoxClose>
-
-		<IoIosCloseCircle />
+					<IoIosCloseCircle
+						onClick={onClose}
+						style={{ width: "30px", height: "25px" }}
+					/>
 				</BoxClose>
-				<Typography id="modal-modal-title" variant="p" marginTop={'-20px'} component="p">
-
+				<Typography
+					id="modal-modal-title"
+					variant="h6"
+					marginTop={"-20px"}
+					component="h6">
 					{title}
 				</Typography>
-				<BoxMUi>
-					<MUIBox></MUIBox>
+				<BoxMUi onClick={onDelete}>
+					<MUIBox>Удалить Задачу</MUIBox>
+					<MdDelete style={{ width: "60px", height: "20px" }} />
 				</BoxMUi>
 			</Box>
 		</MuiModal>
@@ -37,9 +45,10 @@ const ModalComponent = ({ title, open, onClose, style }: PropsComponent) => {
 
 interface TypeChildren {
 	children: ReactNode;
+	onDelete: () => void;
 }
 
-const SettingModal = ({ children }: TypeChildren) => {
+const SettingModal = ({ children, onDelete }: TypeChildren) => {
 	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => setOpen(true);
@@ -50,9 +59,9 @@ const SettingModal = ({ children }: TypeChildren) => {
 		top: "50%",
 		left: "50%",
 		transform: "translate(-50%, -50%)",
-		width: 200,
+		width: 250,
 		bgcolor: "background.paper",
-		border: "2px solid #000",
+		border: "2px solid #ffffff",
 		boxShadow: 24,
 		p: 4,
 	};
@@ -71,11 +80,14 @@ const SettingModal = ({ children }: TypeChildren) => {
 				{children}
 			</IoEllipsisHorizontal>
 			<ModalComponent
-			
-				title="Настройка Задачу🔧"
+				title="Настройка задачи"
 				open={open}
 				onClose={handleClose}
 				style={style}
+				onDelete={() => {
+					onDelete();
+					handleClose();
+				}}
 			/>
 		</div>
 	);
@@ -86,17 +98,29 @@ export default SettingModal;
 const MUIBox = styled(Box)`
 	display: flex;
 	gap: 20px;
-	margin-top: 10px;
+	margin-top: 1px;
+	cursor: auto;
+	color: blue;
+	font-size: 15px;
+	font-weight: 600;
 `;
+
 const BoxMUi = styled(Box)`
 	display: flex;
-	justify-content: space-between;
+	gap: 25px;
+	margin-top: 20px;
+	color: red;
+	cursor: pointer;
+	&:active {
+		color: blue;
+	}
 `;
 
-
 const BoxClose = styled(Box)`
-text-align: end;
-margin-top: -30px;
-
-
-`
+	text-align: end;
+	margin-top: -30px;
+	cursor: pointer;
+	&:active {
+		color: blue;
+	}
+`;

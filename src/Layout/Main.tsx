@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { DragEvent, SetStateAction, useState } from "react";
 import "../components/css/Main.css";
 import { Box, styled } from "@mui/material";
 import SettingModal from "./Tasks/Setting";
@@ -47,7 +47,7 @@ const Main = () => {
 	const [currentBoard, setCurrentBoard] = useState<Board | null>(null);
 	const [currentItem, setCurrentItem] = useState<Item | null>(null);
 
-	function dragOverHandler(e) {
+	function dragOverHandler(e: DragEvent<HTMLDivElement>) {
 		e.preventDefault();
 		if (e.target.className === "item") {
 			e.target.style.boxShadow = "0 4px 3px gray";
@@ -58,7 +58,11 @@ const Main = () => {
 		e.target.style.boxShadow = "none";
 	}
 
-	function dragStartHandler(e, board, item) {
+	function dragStartHandler(
+		e: DragEvent<HTMLDivElement>,
+		board: SetStateAction<Board | null>,
+		item: SetStateAction<Item | null>
+	) {
 		setCurrentBoard(board);
 		setCurrentItem(item);
 	}
@@ -67,7 +71,7 @@ const Main = () => {
 		e.target.style.boxShadow = "none";
 	}
 
-	function dropHandler(e, board, item) {
+	function dropHandler(e: DragEvent<HTMLDivElement>, board: Board, item: Item) {
 		e.preventDefault();
 		if (currentBoard && currentItem) {
 			const currentIndex = currentBoard.items.indexOf(currentItem);
@@ -108,6 +112,20 @@ const Main = () => {
 		}
 	}
 
+	const deleteItem = (boardId: number, itemId: number) => {
+		setBoards(
+			boards.map((board) => {
+				if (board.id === boardId) {
+					return {
+						...board,
+						items: board.items.filter((item) => item.id !== itemId),
+					};
+				}
+				return board;
+			})
+		);
+	};
+
 	return (
 		<div className="app">
 			{boards.map((board) => (
@@ -126,8 +144,9 @@ const Main = () => {
 							className="item">
 							{item.title}
 							<Settings>
-								<SettingModal>...</SettingModal>
-						
+								<SettingModal onDelete={() => deleteItem(board.id, item.id)}>
+									...
+								</SettingModal>
 							</Settings>
 						</div>
 					))}
@@ -138,7 +157,6 @@ const Main = () => {
 };
 
 export default Main;
-
 
 const Settings = styled(Box)`
 	text-align: end;
