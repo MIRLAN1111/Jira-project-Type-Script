@@ -6,11 +6,20 @@ interface InputRezmo {
 	value: string;
 	placholder: string;
 	variant: any;
+	label: string;
 }
-const Input = ({ onChange, type, value, placholder, variant }: InputRezmo) => {
+const Input = ({
+	onChange,
+	type,
+	value,
+	placholder,
+	variant,
+	label,
+}: InputRezmo) => {
 	return (
 		<div>
 			<TextField
+				label={label}
 				onChange={onChange}
 				value={value}
 				placeholder={placholder}

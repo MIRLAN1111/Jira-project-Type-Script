@@ -1,52 +1,79 @@
-import  { useState } from "react";
-import { Box, TextField, styled } from "@mui/material";
+import { useState } from "react";
+import { Box, styled } from "@mui/material";
 import { RiAddBoxFill } from "react-icons/ri";
 import { FaSave, FaWindowClose } from "react-icons/fa";
+import Input from "../../components/UI/Input";
 
 const Tasks: React.FC = () => {
-	const [isInputVisible, setIsInputVisible] = useState(false);
+  const [isInputVisible, setIsInputVisible] = useState(false);
+  const [newBoardTitle, setNewBoardTitle] = useState("");
 
-	const handleButtonClick = () => {
-		setIsInputVisible(true);
-	};
+  const handleButtonClick = () => {
+    setIsInputVisible(true);
+  };
 
-	const handleClose = () => {
-		setIsInputVisible(false);
-	};
-	return (
-		<div >
-			{isInputVisible ? (
-				<div>
-					<TextField type="text" />
+  const handleClose = () => {
+    setIsInputVisible(false);
+    setNewBoardTitle("");
+  };
+
+  const handleSave = () => {
+    if (newBoardTitle.trim() !== "") {
+      const newBoard: Board = {
+        id: Math.random(), 
+        title: newBoardTitle,
+        items: [],
+      };
+      setBoards([...boards, newBoard]);
+      setIsInputVisible(false);
+      setNewBoardTitle("");
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewBoardTitle(e.target.value);
+  };
+
+  return (
+    <div>
+      {isInputVisible ? (
+        <div>
+          <Input
+            type="text"
+            label="Create Board"
+            value={newBoardTitle}
+            onChange={handleInputChange}
+          />
           <GradiantMui>
-
-          <CloseIcons onClick={handleClose} />
-					<SaveIcons>Save</SaveIcons>
+            <CloseIcons onClick={handleClose} />
+            <SaveIcons onClick={handleSave}>Save</SaveIcons>
           </GradiantMui>
-
-				</div>
-			) : (
+        </div>
+      ) : (
         <IoMdAddIcons onClick={handleButtonClick} />
-
-			)}
-		</div>
-	);
+      )}
+    </div>
+  );
 };
 
 const GradiantMui = styled(Box)`
-display: flex;
-justify-content: end;
-gap: 30px;
+  display: flex;
+  justify-content: end;
+  gap: 30px;
+`;
 
-`
 const SaveIcons = styled(FaSave)`
-font-size: 25px;
-font-weight: 600;
-`
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
 const CloseIcons = styled(FaWindowClose)`
-font-size: 25px;
-font-weight: 600;
-`
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+`;
+
 const IoMdAddIcons = styled(RiAddBoxFill)`
   font-size: 30px;
   font-weight: 800;
