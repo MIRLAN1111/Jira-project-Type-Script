@@ -2,6 +2,7 @@ import { DragEvent, SetStateAction, useState } from "react";
 import "../components/css/Main.css";
 import { Box, styled } from "@mui/material";
 import SettingModal from "./Tasks/Setting";
+import Tasks from "./Tasks/Tasks";
 
 interface Item {
 	id: number;
@@ -133,15 +134,15 @@ const Main = () => {
 					<div className="board__title">{board.title}</div>
 					{board.items.map((item) => (
 						<div
-							key={item.id}
-							onDragOver={(e) => dragOverHandler(e)}
-							onDragLeave={(e) => dragLeaveHandler(e)}
-							onDragStart={(e) => dragStartHandler(e, board, item)}
-							onDragEnd={(e) => dragEndHandler(e)}
-							onDrop={(e) => dropHandler(e, board, item)}
-							className="todo"
-							draggable={true}
-							className="item">
+						key={item.id}
+						onDragOver={(e) => dragOverHandler(e)}
+						onDragLeave={(e) => dragLeaveHandler(e)}
+						onDragStart={(e) => dragStartHandler(e, board, item)}
+						onDragEnd={(e) => dragEndHandler(e)}
+						onDrop={(e) => dropHandler(e, board, item)}
+						className="todo"
+						draggable={true}
+						className="item">
 							{item.title}
 							<Settings>
 								<SettingModal onDelete={() => deleteItem(board.id, item.id)}>
@@ -152,12 +153,20 @@ const Main = () => {
 					))}
 				</div>
 			))}
+			<DoskaAdd>
+			<Tasks/>
+
+			</DoskaAdd>
+	
 		</div>
 	);
 };
 
 export default Main;
 
+const DoskaAdd = styled(Box)`
+  margin-top: -350px;
+`
 const Settings = styled(Box)`
 	text-align: end;
 `;
