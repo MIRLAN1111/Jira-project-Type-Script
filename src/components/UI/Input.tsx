@@ -1,7 +1,8 @@
 import { TextField } from "@mui/material";
+import { ChangeEvent } from "react";
 
 interface InputRezmo {
-	onChange: () => void;
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	type: string;
 	value: string;
 	placholder: string;

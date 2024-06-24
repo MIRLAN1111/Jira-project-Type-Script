@@ -37,6 +37,7 @@ const DivJira = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	width: 97%;
+	height: 55px;
 	padding: 0 20px;
 	background-color: #fff;
 	border-bottom: 1px solid #ccc;
