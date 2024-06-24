@@ -1,20 +1,8 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { Box, Typography, Modal as MuiModal } from "@mui/material";
 import styled from "styled-components";
 import Button from "./Button";
-
-interface PropsComponent {
-	title: string;
-	text: string;
-	description: string;
-	open: boolean;
-	onClose: () => void;
-	style: any;
-}
-
-interface ChildrenProps {
-	children: ReactNode;
-}
+import { ChildrenProps, PropsComponent } from "../Ts/type";
 
 const Modal = ({ children }: ChildrenProps) => {
 	const [inputValue, setInputValue] = useState("");

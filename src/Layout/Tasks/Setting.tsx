@@ -5,14 +5,7 @@ import { IoEllipsisHorizontal } from "react-icons/io5";
 import { IoIosCloseCircle } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import "react-toastify/dist/ReactToastify.css";
-
-interface PropsComponent {
-	title: string;
-	open: boolean;
-	onClose: () => void;
-	style: any;
-	onDelete: () => void;
-}
+import { PropsComponent } from "../../components/Ts/type";
 
 const ModalComponent = ({
 	title,
@@ -42,8 +35,7 @@ const ModalComponent = ({
 					{title}
 				</Typography>
 				<BoxMUi onClick={onDelete}>
-					
-					<MUIBox >Удалить Задачу</MUIBox>
+					<MUIBox>Удалить Задачу</MUIBox>
 					<MdDelete style={{ width: "60px", height: "20px" }} />
 				</BoxMUi>
 			</Box>
@@ -56,7 +48,7 @@ interface TypeChildren {
 	onDelete: () => void;
 }
 
-const SettingModal = ({ children, onDelete  }: TypeChildren) => {
+const SettingModal = ({ children, onDelete }: TypeChildren) => {
 	const [open, setOpen] = useState(false);
 
 	const handleOpen = () => setOpen(true);
@@ -93,9 +85,11 @@ const SettingModal = ({ children, onDelete  }: TypeChildren) => {
 				onClose={handleClose}
 				style={style}
 				onDelete={() => {
-					onDelete ();
+					onDelete();
 					handleClose();
 				}}
+				text={""}
+				description={""}
 			/>
 		</div>
 	);
