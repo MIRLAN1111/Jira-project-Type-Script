@@ -1,64 +1,14 @@
-import { useState } from "react";
-import { Box, Typography, Modal as MuiModal } from "@mui/material";
-import styled from "styled-components";
+import { ChangeEvent, useState } from "react";
 import Button from "./Button";
-import { ChildrenProps, PropsComponent } from "../Ts/type";
+import { ChildrenProps } from "../Ts/type";
+import ModalComponent from "../../Layout/Tasks/ModalComponents";
 
 const Modal = ({ children }: ChildrenProps) => {
 	const [inputValue, setInputValue] = useState("");
-	console.log(inputValue);
-
-	const ModalComponent = ({
-		title,
-
-		description,
-		text,
-		open,
-		onClose,
-		style,
-	}: PropsComponent) => {
-		return (
-			<MuiModal
-				open={open}
-				onClose={onClose}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description">
-				<Box sx={style}>
-					<Typography id="modal-modal-title" variant="h6" component="h2">
-						{title}
-					</Typography>
-					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-						{description}
-					</Typography>
-					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-						{text}
-					</Typography>
-					<SelectUsers>
-						<option>mirlan (DEV)</option>
-						<option>mirlan (DEV)</option>
-					</SelectUsers>
-					<MOMUI>
-						<InputRezgo
-							type="text"
-							placeholder="Добавить Задачу"
-							value={inputValue}
-							onChange={(e) => setInputValue(e.target.value)}
-						/>
-					</MOMUI>
-					<BoxMUi>
-						<MUIBox>
-							<Button variant="outlined" onClick={onClose}>
-								Отмена
-							</Button>
-							<Button>Создать</Button>
-						</MUIBox>
-					</BoxMUi>
-				</Box>
-			</MuiModal>
-		);
-	};
-
 	const [open, setOpen] = useState(false);
+
+	const handleChangeAdd = (e: ChangeEvent<HTMLInputElement>) =>
+		setInputValue(e.target.value);
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -87,37 +37,11 @@ const Modal = ({ children }: ChildrenProps) => {
 				open={open}
 				onClose={handleClose}
 				style={style}
+				inputValue={inputValue}
+				handleChangeAdd={handleChangeAdd}
 			/>
 		</div>
 	);
 };
 
 export default Modal;
-
-const MUIBox = styled(Box)`
-	margin-top: 50px;
-`;
-const MOMUI = styled(Box)`
-	margin-top: -15 px;
-`;
-const BoxMUi = styled(Box)`
-	display: flex;
-	justify-content: space-between;
-`;
-const SelectUsers = styled.select`
-	width: 70%;
-	padding: 10px;
-	border: 1px solid black;
-	font-size: 15px;
-	font-weight: 600;
-`;
-
-const InputRezgo = styled.input`
-	width: 300px;
-	height: 40px;
-	margin-top: 30px;
-	border: 1px solid black;
-	color: black;
-	font-size: 15px;
-	font-weight: 500;
-`;

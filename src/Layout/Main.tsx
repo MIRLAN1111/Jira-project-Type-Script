@@ -18,6 +18,7 @@ interface Board {
 }
 
 const Main = () => {
+  
   const [boards, setBoards] = useState<Board[]>([
     {
       id: 1,

@@ -2,13 +2,8 @@ import { useState } from "react";
 import { Box, styled } from "@mui/material";
 import { RiAddBoxFill } from "react-icons/ri";
 import { FaSave, FaWindowClose } from "react-icons/fa";
+import { Board } from "../../components/Ts/type";
 import Input from "../../components/UI/Input";
-
-type Board = {
-	id: number;
-	title: string;
-	items: any[];
-};
 
 const Tasks: React.FC = () => {
 	const [isInputVisible, setIsInputVisible] = useState(false);
@@ -48,6 +43,7 @@ const Tasks: React.FC = () => {
 						label="Create Board"
 						value={newBoardTitle}
 						onChange={handleInputChange}
+						placholder="Пишите что нибудь"
 					/>
 					<GradiantMui>
 						<CloseIcons onClick={handleClose} />

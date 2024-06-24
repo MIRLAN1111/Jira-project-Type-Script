@@ -20,3 +20,11 @@ export interface PropsComponent {
 	style: any;
 	onDelete: () => void;
 }
+
+export type Board = {
+	id: number;
+	title: string;
+	items: any[];
+};
+
+
