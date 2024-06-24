@@ -24,7 +24,7 @@
 }
 .item{
   width: 100%;
-border: 2px solid lightpink;
+border: 2px solid rgb(152, 0, 152);
 padding: 10px;
 border-radius: 6px;
 margin: 5px 0;
@@ -34,4 +34,7 @@ background-color: #fcfcf9;
 }
 .item:active{
   cursor: grabbing;
+}
+.item__dragged-over {
+	border: 2px dashed #aaa; 
 }
