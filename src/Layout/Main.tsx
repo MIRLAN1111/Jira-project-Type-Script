@@ -1,10 +1,10 @@
 import { DragEvent, useState } from "react";
 import "../components/css/Main.css";
 import { Box, styled } from "@mui/material";
-import SettingModal from "./Tasks/Setting";
 import Tasks from "./Tasks/Tasks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SettingModal from "./Tasks/SettingsModal";
 
 interface Item {
 	id: number;
@@ -56,7 +56,11 @@ const Main: React.FC = () => {
 		toast.success("Доска успешно добавлена!");
 	};
 
-	const dragStartHandler = (e: DragEvent<HTMLDivElement>, board: Board, item: Item) => {
+	const dragStartHandler = (
+		e: DragEvent<HTMLDivElement>,
+		board: Board,
+		item: Item
+	) => {
 		setCurrentBoard(board);
 		setCurrentItem(item);
 	};
@@ -70,22 +74,36 @@ const Main: React.FC = () => {
 		e.preventDefault();
 	};
 
-	const dragEnterHandler = (e: DragEvent<HTMLDivElement>, board: Board, item: Item) => {
+	const dragEnterHandler = (
+		e: DragEvent<HTMLDivElement>,
+		board: Board,
+		item: Item
+	) => {
 		if (item !== currentItem) {
 			e.currentTarget.classList.add("item__dragged-over");
 		}
 	};
 
-	const dragLeaveHandler = (e: DragEvent<HTMLDivElement>, board: Board, item: Item) => {
+	const dragLeaveHandler = (
+		e: DragEvent<HTMLDivElement>,
+		board: Board,
+		item: Item
+	) => {
 		if (item !== currentItem) {
 			e.currentTarget.classList.remove("item__dragged-over");
 		}
 	};
 
-	const dropHandler = (e: DragEvent<HTMLDivElement>, targetBoard: Board, targetItem: Item) => {
+	const dropHandler = (
+		e: DragEvent<HTMLDivElement>,
+		targetBoard: Board,
+		targetItem: Item
+	) => {
 		e.preventDefault();
 		if (currentItem && currentBoard) {
-			const sourceBoardIndex = boards.findIndex((board) => board.id === currentBoard.id);
+			const sourceBoardIndex = boards.findIndex(
+				(board) => board.id === currentBoard.id
+			);
 			const sourceItemIndex = boards[sourceBoardIndex].items.findIndex(
 				(item) => item.id === currentItem.id
 			);
@@ -97,9 +115,13 @@ const Main: React.FC = () => {
 				items: updatedSourceItems,
 			};
 
-			const targetBoardIndex = boards.findIndex((board) => board.id === targetBoard.id);
+			const targetBoardIndex = boards.findIndex(
+				(board) => board.id === targetBoard.id
+			);
 			const updatedTargetItems = [...boards[targetBoardIndex].items];
-			const insertIndex = updatedTargetItems.findIndex((item) => item.id === targetItem.id);
+			const insertIndex = updatedTargetItems.findIndex(
+				(item) => item.id === targetItem.id
+			);
 
 			if (insertIndex === -1) {
 				updatedTargetItems.push(currentItem);
@@ -123,6 +145,16 @@ const Main: React.FC = () => {
 	};
 
 	const deleteItem = (boardId: number, itemId: number) => {
+		const updateBoards = boards.map((board) => {
+			if (board.id === boardId) {
+				const updateItems = board.items.filter((item) => item.id !== itemId);
+				return { ...board, items: updateItems };
+			}
+			return board;
+		}).filter(Boolean)
+
+		setBoards(updateBoards)
+		toast.success("Новая Доска успешно добавленно")
 	};
 
 	return (
