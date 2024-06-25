@@ -38,7 +38,7 @@ const ModalComponent = ({
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					{description}
 				</Typography>
-				<Select style={{ width: "200px" }}>
+				<Select defaultValue="Проект Один" style={{ width: "200px" }}>
 					<MenuItem value="Проект Один">Проект Один</MenuItem>
 					<MenuItem value="Проект Два">Проект Два</MenuItem>
 				</Select>
@@ -53,7 +53,6 @@ const ModalComponent = ({
 						placeholder="Заполните Резюме"
 						value={inputValue}
 						onChange={handleChangeAdd}
-					
 					/>
 				</MOMUI>
 				<BoxMUi>

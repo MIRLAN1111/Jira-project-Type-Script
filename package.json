@@ -21,6 +21,7 @@
     "react-router-dom": "^6.24.0",
     "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
     "styled-components": "^6.1.11",
     "uuid": "^10.0.0"
   },
