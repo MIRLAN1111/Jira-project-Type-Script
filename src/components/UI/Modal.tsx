@@ -1,11 +1,16 @@
 import { ChangeEvent, useState } from "react";
 import Button from "./Button";
-import { ChildrenProps } from "../Ts/type";
+import { Board, ChildrenProps } from "../Ts/type";
 import ModalComponent from "../../Layout/Tasks/ModalComponents";
+import { useDispatch, useSelector } from "react-redux";
+import { setBoard } from "../store/jiraSlice/jiraSlice";
+import { toast } from "react-toastify";
 
 const Modal = ({ children }: ChildrenProps) => {
+	const dispatch = useDispatch();
 	const [inputValue, setInputValue] = useState("");
 	const [open, setOpen] = useState(false);
+	const boards = useSelector((state: any) => state.jira.board);
 
 	const handleChangeAdd = (e: ChangeEvent<HTMLInputElement>) =>
 		setInputValue(e.target.value);
@@ -25,6 +30,19 @@ const Modal = ({ children }: ChildrenProps) => {
 		p: 4,
 	};
 
+	const handleAddTask = () => {
+		toast("Проект Добавленно🦄");
+		if (inputValue.trim()) {
+			setOpen(false);
+			const newItem = { id: Date.now(), title: inputValue };
+			const updatedBoards = boards?.map((board: Board) =>
+				board.id === 1 ? { ...board, items: [...board.items, newItem] } : board
+			);
+			dispatch(setBoard(updatedBoards));
+		}
+		setInputValue("");
+	};
+
 	return (
 		<div>
 			<Button variant="contained" onClick={handleOpen}>
@@ -37,13 +55,11 @@ const Modal = ({ children }: ChildrenProps) => {
 				option="mirlan"
 				open={open}
 				onClose={handleClose}
+				handleAddTask={handleAddTask}
 				style={style}
 				inputValue={inputValue}
 				handleChangeAdd={handleChangeAdd}
 				onDelete={function (): void {
-					throw new Error("Function not implemented.");
-				}}
-				handleAddTask={function (): void {
 					throw new Error("Function not implemented.");
 				}}
 				select={""}

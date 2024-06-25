@@ -53,6 +53,7 @@ const ModalComponent = ({
 						placeholder="Заполните Резюме"
 						value={inputValue}
 						onChange={handleChangeAdd}
+					
 					/>
 				</MOMUI>
 				<BoxMUi>
