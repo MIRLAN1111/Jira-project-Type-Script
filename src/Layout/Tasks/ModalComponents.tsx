@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import { Box, Typography, Modal as MuiModal } from "@mui/material";
+import { Box, Typography, Modal as MuiModal, Select } from "@mui/material";
 import styled from "styled-components";
 import Button from "../../components/UI/Button";
 import { PropsComponent } from "../../components/Ts/type";
@@ -7,13 +7,15 @@ import { PropsComponent } from "../../components/Ts/type";
 const ModalComponent = ({
 	title,
 	description,
+	select,
+	option,
 	text,
 	open,
 	onClose,
 	style,
 	inputValue,
 	handleChangeAdd,
-	handleAddTask
+	handleAddTask,
 }: PropsComponent & {
 	inputValue: string;
 	handleChangeAdd: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -32,6 +34,9 @@ const ModalComponent = ({
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					{description}
 				</Typography>
+				<Select style={{width:"200px"}}>
+					<option  value="done" style={{color:"green", width:"130px", fontSize:"20px"}}>done</option>
+				</Select>
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					{text}
 				</Typography>

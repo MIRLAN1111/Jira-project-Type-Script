@@ -33,12 +33,15 @@ const Modal = ({ children }: ChildrenProps) => {
 			<ModalComponent
 				title="Создание задачи	"
 				description="Обязательные поля отмечены звездочкой *"
+				option="mirlan"
 				text="Проект*"
 				open={open}
 				onClose={handleClose}
 				style={style}
 				inputValue={inputValue}
 				handleChangeAdd={handleChangeAdd} onDelete={function (): void {
+					throw new Error("Function not implemented.");
+				} } handleAddTask={function (): void {
 					throw new Error("Function not implemented.");
 				} }			/>
 		</div>

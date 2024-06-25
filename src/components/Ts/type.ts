@@ -15,6 +15,8 @@ export interface ChildrenProps {
 
 export interface PropsComponent {
 	title: string;
+	select: string;
+	option: string;
 	open: boolean;
 	onClose: () => void;
 	style: any;
@@ -26,5 +28,3 @@ export type Board = {
 	title: string;
 	items: any[];
 };
-
-
