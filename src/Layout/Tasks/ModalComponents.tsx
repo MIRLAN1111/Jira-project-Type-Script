@@ -7,8 +7,6 @@ import { PropsComponent } from "../../components/Ts/type";
 const ModalComponent = ({
 	title,
 	description,
-	select,
-	option,
 	text,
 	open,
 	onClose,
@@ -34,12 +32,17 @@ const ModalComponent = ({
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					{description}
 				</Typography>
-				<Select style={{width:"200px"}}>
-					<option  value="done" style={{color:"green", width:"130px", fontSize:"20px"}}>done</option>
+				<Select style={{ width: "200px" }}>
+					<option
+						value="done"
+						style={{ color: "green", width: "130px", fontSize: "20px" }}>
+						done
+					</option>
 				</Select>
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					{text}
 				</Typography>
+
 				<MOMUI>
 					<InputRezgo
 						type="text"

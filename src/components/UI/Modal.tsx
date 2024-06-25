@@ -43,7 +43,7 @@ const Modal = ({ children }: ChildrenProps) => {
 					throw new Error("Function not implemented.");
 				} } handleAddTask={function (): void {
 					throw new Error("Function not implemented.");
-				} }			/>
+				} } select={""}			/>
 		</div>
 	);
 };

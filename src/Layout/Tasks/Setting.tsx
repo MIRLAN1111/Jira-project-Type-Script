@@ -87,10 +87,9 @@ const SettingModal = ({ children, onDelete }: TypeChildren) => {
 				onDelete={() => {
 					onDelete();
 					handleClose();
-				}}
+				} }
 				text={""}
-				description={""}
-			/>
+				description={""} select={""} option={""}			/>
 		</div>
 	);
 };

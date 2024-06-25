@@ -22,7 +22,9 @@ const Tasks: React.FC<TasksProps> = ({ addBoard }) => {
 		setNewBoardTitle("");
 	};
 
-	const handleSave = () => {
+	const handleSave = (e) => {
+		e.preventDefault();
+
 		if (newBoardTitle.trim() !== "") {
 			const newBoard: Board = {
 				id: Math.random(),
@@ -43,18 +45,20 @@ const Tasks: React.FC<TasksProps> = ({ addBoard }) => {
 		<div>
 			{isInputVisible ? (
 				<div>
-					<Input
-						type="text"
-						label="Create Board"
-						value={newBoardTitle}
-						onChange={handleInputChange}
-						placholder="Пишите что нибудь"
-						variant={undefined}
-					/>
-					<GradiantMui>
-						<CloseIcons onClick={handleClose} />
-						<SaveIcons onClick={handleSave}>Save</SaveIcons>
-					</GradiantMui>
+					<form onSubmit={handleSave}>
+						<Input
+							type="text"
+							label="Create Board"
+							value={newBoardTitle}
+							onChange={handleInputChange}
+							placholder="Пишите что нибудь"
+							variant={undefined}
+						/>
+						<GradiantMui>
+							<CloseIcons onClick={handleClose} />
+							<SaveIcons type="submit" />
+						</GradiantMui>
+					</form>
 				</div>
 			) : (
 				<IoMdAddIcons onClick={handleButtonClick} />
