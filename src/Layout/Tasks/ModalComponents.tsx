@@ -1,5 +1,11 @@
 import { ChangeEvent } from "react";
-import { Box, Typography, Modal as MuiModal, Select } from "@mui/material";
+import {
+	Box,
+	Typography,
+	Modal as MuiModal,
+	Select,
+	MenuItem,
+} from "@mui/material";
 import styled from "styled-components";
 import Button from "../../components/UI/Button";
 import { PropsComponent } from "../../components/Ts/type";
@@ -33,12 +39,10 @@ const ModalComponent = ({
 					{description}
 				</Typography>
 				<Select style={{ width: "200px" }}>
-					<option
-						value="done"
-						style={{ color: "green", width: "130px", fontSize: "20px" }}>
-						done
-					</option>
+					<MenuItem value="Проект Один">Проект Один</MenuItem>
+					<MenuItem value="Проект Два">Проект Два</MenuItem>
 				</Select>
+
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					{text}
 				</Typography>
@@ -46,7 +50,7 @@ const ModalComponent = ({
 				<MOMUI>
 					<InputRezgo
 						type="text"
-						placeholder="Добавить Задачу"
+						placeholder="Заполните Резюме"
 						value={inputValue}
 						onChange={handleChangeAdd}
 					/>

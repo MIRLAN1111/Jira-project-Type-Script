@@ -247,13 +247,13 @@ const Main: React.FC = () => {
                 <Input
                   type="text"
                   label="Создать задачу"
-                  placeholder="Введите название задачи"
+                  placholder="Введите название задачи"
                   value={newTask}
                   onChange={handleInputChange}
                   variant={undefined}
                 />
                 <CloseTasks onClick={() => setIsInputVisible(false)} />
-                <AddTasks type="submit" />
+                <AddTasks type="submit"  />
               </form>
             </div>
           )}
@@ -291,3 +291,4 @@ const CloseTasks = styled(VscClose)`
 const Settings = styled(Box)`
   text-align: end;
 `;
+

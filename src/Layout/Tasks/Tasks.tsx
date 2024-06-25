@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { Box, styled } from "@mui/material";
 import { RiAddBoxFill } from "react-icons/ri";
 import { FaSave, FaWindowClose } from "react-icons/fa";
@@ -22,7 +22,7 @@ const Tasks: React.FC<TasksProps> = ({ addBoard }) => {
 		setNewBoardTitle("");
 	};
 
-	const handleSave = (e) => {
+	const handleSave = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (newBoardTitle.trim() !== "") {

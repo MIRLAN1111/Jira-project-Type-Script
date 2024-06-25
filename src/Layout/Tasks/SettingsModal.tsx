@@ -90,6 +90,8 @@ const SettingModal = ({ children, onDelete }: TypeChildren) => {
 				}}
 				text={""}
 				description={""}
+				select={""}
+				option={""}
 			/>
 		</div>
 	);
