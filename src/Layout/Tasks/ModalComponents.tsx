@@ -13,9 +13,11 @@ const ModalComponent = ({
 	style,
 	inputValue,
 	handleChangeAdd,
+	handleAddTask
 }: PropsComponent & {
 	inputValue: string;
 	handleChangeAdd: (e: ChangeEvent<HTMLInputElement>) => void;
+	handleAddTask: () => void;
 }) => {
 	return (
 		<MuiModal
@@ -33,10 +35,6 @@ const ModalComponent = ({
 				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
 					{text}
 				</Typography>
-				<SelectUsers>
-					<option>mirlan (DEV)</option>
-					<option>mirlan (DEV)</option>
-				</SelectUsers>
 				<MOMUI>
 					<InputRezgo
 						type="text"
@@ -50,7 +48,7 @@ const ModalComponent = ({
 						<Button variant="outlined" onClick={onClose}>
 							Отмена
 						</Button>
-						<Button>Создать</Button>
+						<Button onClick={handleAddTask}>Создать</Button>
 					</MUIBox>
 				</BoxMUi>
 			</Box>
@@ -73,14 +71,6 @@ const MOMUI = styled(Box)`
 const BoxMUi = styled(Box)`
 	display: flex;
 	justify-content: space-between;
-`;
-
-const SelectUsers = styled.select`
-	width: 70%;
-	padding: 10px;
-	border: 1px solid black;
-	font-size: 15px;
-	font-weight: 600;
 `;
 
 const InputRezgo = styled.input`
