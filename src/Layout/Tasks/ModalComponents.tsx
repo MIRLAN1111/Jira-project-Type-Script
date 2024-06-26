@@ -5,10 +5,17 @@ import {
 	Modal as MuiModal,
 	Select,
 	MenuItem,
+	styled,
 } from "@mui/material";
-import styled from "styled-components";
 import Button from "../../components/UI/Button";
 import { PropsComponent } from "../../components/Ts/type";
+import Input from "../../components/UI/Input";
+
+interface ModalComponentProps extends PropsComponent {
+	inputValue: string;
+	handleChangeAdd: (e: ChangeEvent<HTMLInputElement>) => void;
+	handleAddTask: () => void;
+}
 
 const ModalComponent = ({
 	title,
@@ -20,77 +27,66 @@ const ModalComponent = ({
 	inputValue,
 	handleChangeAdd,
 	handleAddTask,
-}: PropsComponent & {
-	inputValue: string;
-	handleChangeAdd: (e: ChangeEvent<HTMLInputElement>) => void;
-	handleAddTask: () => void;
-}) => {
+}: ModalComponentProps) => {
 	return (
 		<MuiModal
 			open={open}
 			onClose={onClose}
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description">
-			<Box sx={style}>
-				<Typography id="modal-modal-title" variant="h6" component="h2">
+			<StyledBox sx={style}>
+				<Typography variant="h6" component="h2">
 					{title}
 				</Typography>
-				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					{description}
-				</Typography>
-				<Select defaultValue="Проект Один" style={{ width: "200px" }}>
-					<MenuItem value="Проект Один">Проект Один</MenuItem>
-					<MenuItem value="Проект Два">Проект Два</MenuItem>
-				</Select>
-
-				<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-					{text}
-				</Typography>
-
-				<MOMUI>
-					<InputRezgo
+				<Typography sx={{ mt: 2 }}>{description}</Typography>
+				<Box sx={{ mt: 2, width: "100%" }}>
+					<Select defaultValue="Проект Один">
+						<MenuItem value="Проект Один">Проект Один</MenuItem>
+						<MenuItem value="Проект Два">Проект Два</MenuItem>
+					</Select>
+				</Box>
+				<Typography sx={{ mt: 2 }}>{text}</Typography>
+				<Box sx={{ mt: 2 }}>
+					<InputMan
 						type="text"
-						placeholder="Заполните Резюме"
+						placholder="Заполните Резюме"
 						value={inputValue}
 						onChange={handleChangeAdd}
+						variant={undefined}
+						label={""}
 					/>
-				</MOMUI>
-				<BoxMUi>
-					<MUIBox>
-						<Button variant="outlined" onClick={onClose}>
-							Отмена
-						</Button>
-						<Button onClick={handleAddTask}>Создать</Button>
-					</MUIBox>
-				</BoxMUi>
-			</Box>
+				</Box>
+				<Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end", gap:"30px"}}>
+					<Button variant="outlined" onClick={onClose} >
+						Отмена
+					</Button>
+					<Button onClick={handleAddTask}>Создать</Button>
+				</Box>
+			</StyledBox>
 		</MuiModal>
-	);	
+	);
 };
 
 export default ModalComponent;
 
-const MUIBox = styled(Box)`
-	margin-top: 50px;
-	display: flex;
-	gap: 20px;
+const StyledBox = styled(Box)`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 600px;
+	padding: 24px;
+	background-color: white;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
-const MOMUI = styled(Box)`
-	margin-top: -15px;
-`;
-
-const BoxMUi = styled(Box)`
-	display: flex;
-	justify-content: space-between;
-`;
-
-const InputRezgo = styled.input`
-	width: 300px;
+const InputMan = styled(Input)`
 	height: 40px;
-	margin-top: 30px;
-	border: 1px solid black;
-	color: black;
 	font-size: 15px;
 	font-weight: 500;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 8px;
+	box-sizing: border-box;
 `;

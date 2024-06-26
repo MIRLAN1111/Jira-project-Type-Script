@@ -38,7 +38,6 @@ const Main: React.FC = () => {
 	const boards = useSelector((state: any) => state.jira.board);
 	const [currentBoard, setCurrentBoard] = useState<Board | null>(null);
 	const [currentItem, setCurrentItem] = useState<Item | null>(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [newTask, setNewTask] = useState("");
 	const [selectedBoardId, setSelectedBoardId] = useState<number | null>(null);
 	const [inputVisibility, setInputVisibility] = useState<{
@@ -59,7 +58,6 @@ const Main: React.FC = () => {
 	}, [boards]);
 
 	const handleCloseModal = () => {
-		setIsModalOpen(false);
 		setNewTask("");
 	};
 
@@ -100,7 +98,7 @@ const Main: React.FC = () => {
 	};
 
 	const dragStartHandler = (
-		e: DragEvent<HTMLDivElement>,
+		_e: DragEvent<HTMLDivElement>,
 		board: Board,
 		item: Item
 	) => {
@@ -108,7 +106,7 @@ const Main: React.FC = () => {
 		setCurrentItem(item);
 	};
 
-	const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
+	const dragEndHandler = () => {
 		setCurrentBoard(null);
 		setCurrentItem(null);
 	};
@@ -119,7 +117,6 @@ const Main: React.FC = () => {
 
 	const dragEnterHandler = (
 		e: DragEvent<HTMLDivElement>,
-		board: Board,
 		item: Item
 	) => {
 		if (item !== currentItem) {
@@ -129,7 +126,6 @@ const Main: React.FC = () => {
 
 	const dragLeaveHandler = (
 		e: DragEvent<HTMLDivElement>,
-		board: Board,
 		item: Item
 	) => {
 		if (item !== currentItem) {
@@ -240,8 +236,8 @@ const Main: React.FC = () => {
 							onDragStart={(e) => dragStartHandler(e, board, item)}
 							onDragEnd={dragEndHandler}
 							onDragOver={dragOverHandler}
-							onDragEnter={(e) => dragEnterHandler(e, board, item)}
-							onDragLeave={(e) => dragLeaveHandler(e, board, item)}
+							onDragEnter={(e) => dragEnterHandler(e, board, )}
+							onDragLeave={(e) => dragLeaveHandler(e, board, )}
 							onDrop={(e) => dropHandler(e, board, item)}
 							className="item"
 							draggable>

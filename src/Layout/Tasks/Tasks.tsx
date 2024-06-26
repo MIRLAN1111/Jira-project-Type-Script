@@ -9,7 +9,7 @@ interface TasksProps {
 	addBoard: (newBoard: Board) => void;
 }
 
-const Tasks: React.FC<TasksProps> = ({ addBoard }) => {
+const Tasks: React.FC<TasksProps> = () => {
 	const [isInputVisible, setIsInputVisible] = useState(false);
 	const [newBoardTitle, setNewBoardTitle] = useState("");
 
@@ -24,17 +24,6 @@ const Tasks: React.FC<TasksProps> = ({ addBoard }) => {
 
 	const handleSave = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
-		if (newBoardTitle.trim() !== "") {
-			const newBoard: Board = {
-				id: Math.random(),
-				title: newBoardTitle,
-				items: [],
-			};
-			addBoard(newBoard);
-			setIsInputVisible(false);
-			setNewBoardTitle("");
-		}
 	};
 
 	const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

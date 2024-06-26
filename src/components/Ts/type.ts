@@ -27,4 +27,7 @@ export type Board = {
 	id: number;
 	title: string;
 	items: any[];
+	columns: any[];
+	tasks: any[];
+	
 };

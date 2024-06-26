@@ -1,16 +1,12 @@
 import { ChangeEvent, useState } from "react";
 import Button from "./Button";
-import { Board, ChildrenProps } from "../Ts/type";
 import ModalComponent from "../../Layout/Tasks/ModalComponents";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { ChildrenProps } from "../Ts/type";
 
-const Modal = ({ children, boards, setBoards, selectedBoardId }: ChildrenProps & {
-  boards: Board[];
-  setBoards: (boards: Board[]) => void;
-  selectedBoardId: number | null;
-}) => {
-	const dispatch = useDispatch();
+interface ModalProps extends ChildrenProps {}
+
+const Modal = ({ children }: ModalProps) => {
 	const [inputValue, setInputValue] = useState("");
 	const [open, setOpen] = useState(false);
 
@@ -34,17 +30,6 @@ const Modal = ({ children, boards, setBoards, selectedBoardId }: ChildrenProps &
 
 	const handleAddTask = () => {
 		toast("Проект добавлен 🦄");
-		if (inputValue.trim() && selectedBoardId !== null) {
-			setOpen(false);
-			const newItem = { id: Date.now(), title: inputValue };
-
-			const updatedBoards = boards.map((board: Board) =>
-				board.id === selectedBoardId ? { ...board, items: [...board.items, newItem] } : board
-			);
-
-			setBoards(updatedBoards);
-			setInputValue("");
-		}
 	};
 
 	return (
