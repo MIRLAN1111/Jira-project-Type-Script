@@ -185,17 +185,17 @@ const Main: React.FC = () => {
 			return board;
 		});
 		dispatch(setBoard(updatedBoards));
-		toast.success("Задача успешно удалена!");
+		toast.error("Задача успешно удалена!");
 	};
 
 	return (
 		<div className="app">
 			{boards.map((board: Board) => (
-				<div className="board" key={board.id}>
+				<div className="board" key={board.id} >
 					<div className="board__title">
 						{board.title}
 						{board.items.map((item: Item) => (
-							<div
+							<div 
 								key={item.id}
 								onDragStart={(e) => dragStartHandler(e, board, item)}
 								onDragEnd={dragEndHandler}
@@ -267,12 +267,13 @@ const Main: React.FC = () => {
 export default Main;
 
 const AddTasks = styled(MdFileDownloadDone)`
-	font-size: 20px;
+	font-size: 25px;
+  
 	cursor: pointer;
 `;
 
 const CloseTasks = styled(VscClose)`
-	font-size: 20px;
+	font-size: 25px;
 	cursor: pointer;
 `;
 

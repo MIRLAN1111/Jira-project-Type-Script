@@ -36,6 +36,7 @@ export const jiraSlice = createSlice({
 		setBoard: (state, { payload }) => {
 			state.board = payload;
 		},
+
 	},
 });
 
