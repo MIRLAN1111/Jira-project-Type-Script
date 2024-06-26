@@ -1,6 +1,15 @@
 import { DragEvent, useState, useEffect, ChangeEvent, FormEvent } from "react";
 import "../components/css/Main.css";
-import { Box, styled } from "@mui/material";
+import {
+	Box,
+	styled,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogContentText,
+	DialogTitle,
+	Button as MuiButton,
+} from "@mui/material";
 import Tasks from "./Tasks/Tasks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,6 +18,7 @@ import Button from "../components/UI/Button";
 import Input from "../components/UI/Input";
 import { MdFileDownloadDone } from "react-icons/md";
 import { VscClose } from "react-icons/vsc";
+import { FcSettings } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import { setBoard } from "../components/store/jiraSlice/jiraSlice";
 
@@ -34,6 +44,8 @@ const Main: React.FC = () => {
 	const [inputVisibility, setInputVisibility] = useState<{
 		[key: number]: boolean;
 	}>({});
+	const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+	const [boardToDelete, setBoardToDelete] = useState<number | null>(null);
 
 	useEffect(() => {
 		const savedBoards = localStorage.getItem("boards");
@@ -54,7 +66,7 @@ const Main: React.FC = () => {
 	const handleAddTask = () => {
 		if (newTask.trim() && selectedBoardId !== null) {
 			const newItem: Item = { id: Date.now(), title: newTask };
-			const updatedBoards = boards?.map((board: Board) => {
+			const updatedBoards = boards.map((board: Board) => {
 				if (board.id === selectedBoardId) {
 					return { ...board, items: [...board.items, newItem] };
 				}
@@ -64,6 +76,7 @@ const Main: React.FC = () => {
 			toast.success("Задача успешно добавлена!");
 			handleCloseModal();
 			setInputVisibility((prev) => ({ ...prev, [selectedBoardId!]: false }));
+			setNewTask("");
 		}
 	};
 
@@ -188,32 +201,58 @@ const Main: React.FC = () => {
 		toast.error("Задача успешно удалена!");
 	};
 
+	const confirmDeleteBoard = (boardId: number) => {
+		setBoardToDelete(boardId);
+		setIsConfirmModalOpen(true);
+	};
+
+	const handleConfirmDelete = () => {
+		if (boardToDelete !== null) {
+			const updatedBoards = boards.filter(
+				(board: Board) => board.id !== boardToDelete
+			);
+			dispatch(setBoard(updatedBoards));
+			toast.error("Доска успешно удалена!");
+			setIsConfirmModalOpen(false);
+			setBoardToDelete(null);
+		}
+	};
+
+	const handleCloseConfirmModal = () => {
+		setIsConfirmModalOpen(false);
+		setBoardToDelete(null);
+	};
+
 	return (
 		<div className="app">
 			{boards.map((board: Board) => (
-				<div className="board" key={board.id} >
+				<div className="board" key={board.id}>
 					<div className="board__title">
 						{board.title}
-						{board.items.map((item: Item) => (
-							<div 
-								key={item.id}
-								onDragStart={(e) => dragStartHandler(e, board, item)}
-								onDragEnd={dragEndHandler}
-								onDragOver={dragOverHandler}
-								onDragEnter={(e) => dragEnterHandler(e, board, item)}
-								onDragLeave={(e) => dragLeaveHandler(e, board, item)}
-								onDrop={(e) => dropHandler(e, board, item)}
-								className="item"
-								draggable>
-								{item.title}
-								<Settings>
-									<SettingModal onDelete={() => deleteItem(board.id, item.id)}>
-										...
-									</SettingModal>
-								</Settings>
-							</div>
-						))}
+						<FcSettings
+							style={{ marginLeft: "150px", cursor: "pointer" }}
+							onClick={() => confirmDeleteBoard(board.id)}
+						/>
 					</div>
+					{board.items.map((item: Item) => (
+						<div
+							key={item.id}
+							onDragStart={(e) => dragStartHandler(e, board, item)}
+							onDragEnd={dragEndHandler}
+							onDragOver={dragOverHandler}
+							onDragEnter={(e) => dragEnterHandler(e, board, item)}
+							onDragLeave={(e) => dragLeaveHandler(e, board, item)}
+							onDrop={(e) => dropHandler(e, board, item)}
+							className="item"
+							draggable>
+							{item.title}
+							<Settings>
+								<SettingModal onDelete={() => deleteItem(board.id, item.id)}>
+									...
+								</SettingModal>
+							</Settings>
+						</div>
+					))}
 					{!inputVisibility[board.id] && (
 						<Button
 							variant="outlined"
@@ -260,6 +299,28 @@ const Main: React.FC = () => {
 				pauseOnHover
 				theme="light"
 			/>
+			<Dialog
+				open={isConfirmModalOpen}
+				onClose={handleCloseConfirmModal}
+				aria-labelledby="confirm-dialog-title"
+				aria-describedby="confirm-dialog-description">
+				<DialogTitle id="confirm-dialog-title">
+					Подтвердите удаление
+				</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="confirm-dialog-description">
+						Вы точно хотите удалить эту доску?
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<MuiButton onClick={handleCloseConfirmModal} color="primary">
+						Отмена
+					</MuiButton>
+					<MuiButton onClick={handleConfirmDelete} color="primary" autoFocus>
+						Удалить
+					</MuiButton>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 };
@@ -268,7 +329,6 @@ export default Main;
 
 const AddTasks = styled(MdFileDownloadDone)`
 	font-size: 25px;
-  
 	cursor: pointer;
 `;
 

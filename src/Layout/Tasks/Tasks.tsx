@@ -48,7 +48,7 @@ const Tasks: React.FC<TasksProps> = ({ addBoard }) => {
 					<form onSubmit={handleSave}>
 						<Input
 							type="text"
-							label="Create Board"
+							label="Название Доску"
 							value={newBoardTitle}
 							onChange={handleInputChange}
 							placholder="Пишите что нибудь"

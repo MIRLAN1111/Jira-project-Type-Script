@@ -65,7 +65,7 @@ const ModalComponent = ({
 				</BoxMUi>
 			</Box>
 		</MuiModal>
-	);
+	);	
 };
 
 export default ModalComponent;

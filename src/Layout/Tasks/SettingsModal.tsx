@@ -84,7 +84,7 @@ const SettingModal = ({ children, onDelete }: TypeChildren) => {
 				open={open}
 				onClose={handleClose}
 				style={style}
-				onDelete={() => {
+				onDelete={() => { 
 					onDelete();
 					handleClose();
 				}}

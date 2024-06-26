@@ -2,15 +2,17 @@ import { ChangeEvent, useState } from "react";
 import Button from "./Button";
 import { Board, ChildrenProps } from "../Ts/type";
 import ModalComponent from "../../Layout/Tasks/ModalComponents";
-import { useDispatch, useSelector } from "react-redux";
-import { setBoard } from "../store/jiraSlice/jiraSlice";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
-const Modal = ({ children }: ChildrenProps) => {
+const Modal = ({ children, boards, setBoards, selectedBoardId }: ChildrenProps & {
+  boards: Board[];
+  setBoards: (boards: Board[]) => void;
+  selectedBoardId: number | null;
+}) => {
 	const dispatch = useDispatch();
 	const [inputValue, setInputValue] = useState("");
 	const [open, setOpen] = useState(false);
-	const boards = useSelector((state: any) => state.jira.board);
 
 	const handleChangeAdd = (e: ChangeEvent<HTMLInputElement>) =>
 		setInputValue(e.target.value);
@@ -31,16 +33,18 @@ const Modal = ({ children }: ChildrenProps) => {
 	};
 
 	const handleAddTask = () => {
-		toast("Проект Добавленно🦄");
-		if (inputValue.trim()) {
+		toast("Проект добавлен 🦄");
+		if (inputValue.trim() && selectedBoardId !== null) {
 			setOpen(false);
 			const newItem = { id: Date.now(), title: inputValue };
-			const updatedBoards = boards?.map((board: Board) =>
-				board.id === 1 ? { ...board, items: [...board.items, newItem] } : board
+
+			const updatedBoards = boards.map((board: Board) =>
+				board.id === selectedBoardId ? { ...board, items: [...board.items, newItem] } : board
 			);
-			dispatch(setBoard(updatedBoards));
+
+			setBoards(updatedBoards);
+			setInputValue("");
 		}
-		setInputValue("");
 	};
 
 	return (
@@ -49,9 +53,9 @@ const Modal = ({ children }: ChildrenProps) => {
 				{children}
 			</Button>
 			<ModalComponent
-				title="Создание задачи	"
+				title="Создание задачи"
 				description="Проект*"
-				text="Резюме "
+				text="Резюме"
 				option="mirlan"
 				open={open}
 				onClose={handleClose}
@@ -59,9 +63,7 @@ const Modal = ({ children }: ChildrenProps) => {
 				style={style}
 				inputValue={inputValue}
 				handleChangeAdd={handleChangeAdd}
-				onDelete={function (): void {
-					throw new Error("Function not implemented.");
-				}}
+				onDelete={() => {}}
 				select={""}
 			/>
 		</div>

@@ -64,7 +64,7 @@ const SettingModal = ({ children, onDelete }: TypeChildren) => {
 		border: "2px solid #ffffff",
 		boxShadow: 24,
 		p: 4,
-	};
+	}; 
 
 	return (
 		<div>
